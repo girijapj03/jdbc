@@ -20,14 +20,14 @@ public interface RestaurantDAO {
 				JdbcConstants.PASSWORD)) {
 
 			connection.setAutoCommit(false);
-			String query = "update  restaurant_table set r_type='TypeEnum.CAFE' where r_name ='" + name + "'";
+			String query = "update  restaurant_table set r_type='" + TypeEnum.CAFE + "' where r_name ='" + name + "'";
 			Statement statement = connection.createStatement();
 			statement.execute(query);
 			ResultSet rs = statement.getResultSet();
-			System.out.println(rs);
+			connection.commit();
+
 			return true;
-		}
-        catch (SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return false;
@@ -38,14 +38,18 @@ public interface RestaurantDAO {
 				JdbcConstants.PASSWORD)) {
 
 			connection.setAutoCommit(false);
-			String query = "delete from  restaurant_table  where r_name ='" + name + "'" ;
+			String query = "delete from  restaurant_table  where r_type='" + newType + "' AND r_name ='" + name + "'  ";
 			Statement statement = connection.createStatement();
 			statement.execute(query);
-			ResultSet rs = statement.getResultSet();
-			System.out.println(rs);
+			int check = statement.executeUpdate(query);
+			System.out.println(check);
+			if (check == 0) {
+				System.out.println("nothing to delete");
+			}
+
+			connection.commit();
 			return true;
-		}
-        catch (SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return false;
