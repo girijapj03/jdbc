@@ -2,7 +2,7 @@ package com.giri.jdbcRestaurant.dto;
 
 import java.io.Serializable;
 
-import com.giri.jdbcRestaurant.ENUMCONstant.*;
+import com.giri.jdbcRestaurant.constant.*;
 
 public class RestaurantDTO implements Serializable{
 private String name;
@@ -10,6 +10,7 @@ private String location;
 private String special;
 private TypeEnum type;
 private boolean best;
+private int id;
 public RestaurantDTO() {}
 public RestaurantDTO(String name, String location, String special, TypeEnum type, boolean best) {
 	super();
@@ -18,6 +19,16 @@ public RestaurantDTO(String name, String location, String special, TypeEnum type
 	this.special = special;
 	this.type = type;
 	this.best = best;
+}
+
+public RestaurantDTO(String name, String location, String special, TypeEnum type, boolean best, int id) {
+	super();
+	this.name = name;
+	this.location = location;
+	this.special = special;
+	this.type = type;
+	this.best = best;
+	this.id = id;
 }
 @Override
 public String toString() {
@@ -70,6 +81,10 @@ public String getName() {
 }
 public void setName(String name) {
 	this.name = name;
+	
+}
+public void setId(int id) {
+	this.id = id;
 }
 public String getLocation() {
 	return location;
