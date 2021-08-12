@@ -13,7 +13,7 @@ public interface RestaurantDAO {
 	int Save(RestaurantDTO dto);
 
 	RestaurantDTO findByName(String name);
-
+        Collection<RestaurantDTO> findByType(TypeEnum type);
 	default boolean updateTypeByName(TypeEnum newType, String name) {
 
 		try (Connection connection = DriverManager.getConnection(JdbcConstants.URL, JdbcConstants.USERNAME,
