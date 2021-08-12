@@ -72,7 +72,7 @@ public class RestaurantDAOImple implements RestaurantDAO {
          return null;
 	}
 	@Override
-	public Collection<RestaurantDTO> findByType(RestaurantType type) {
+	public Collection<RestaurantDTO> findByType(TypeEnum type) {
 		Collection<RestaurantDTO> collection = new LinkedList<>();
 		try (Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
 			String query = "SELECT * FROM restaurant WHERE r_type = '" + type + "'";
