@@ -71,5 +71,30 @@ public class RestaurantDAOImple implements RestaurantDAO {
 		}
          return null;
 	}
+	@Override
+	public Collection<RestaurantDTO> findByType(RestaurantType type) {
+		Collection<RestaurantDTO> collection = new LinkedList<>();
+		try (Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD)) {
+			String query = "SELECT * FROM restaurant WHERE r_type = '" + type + "'";
+			Statement statement = connection.createStatement();
+			statement.execute(query);
+			ResultSet resultSet = statement.getResultSet();
+			if (resultSet.next()) {
+				int id = resultSet.getInt("r_id");
+				String name = resultSet.getString("r_name");
+				String location = resultSet.getString("r_location");
+				String special = resultSet.getString("r_specialFood");
+				boolean best = resultSet.getBoolean("r_best");
+				String resType = resultSet.getString("r_type");
+				System.out.println("Find By Type " + type);
+				RestaurantDTO dto = new RestaurantDTO(name, location, special, best, RestaurantType.valueOf(resType));
+				dto.setId(id);
+				collection.add(dto);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return collection;
+	}
 
 }
