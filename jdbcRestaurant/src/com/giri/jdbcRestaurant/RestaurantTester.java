@@ -14,11 +14,12 @@ public class RestaurantTester {
 		dao.Save(dto);
 		RestaurantDTO dto1=dao.findByName("Niyaaz");
 		System.out.println(dto1);
-		boolean check=dao.updateTypeByName(TypeEnum.FAST_CASUAL,"Niyaaz");
+		boolean check=dao.updateTypeByName(TypeEnum.FAST_FOOD,"Niyaaz");
 		
 		System.out.println("found :"+check);
 		
-		boolean del=dao.deleteTypeByName(TypeEnum.FAST_CASUAL,"Niyaaz");
+		boolean del=dao.deleteTypeByName(TypeEnum.CAFE,"");
+	
 		System.out.println("deleted :"+ del );
 		
 	}
