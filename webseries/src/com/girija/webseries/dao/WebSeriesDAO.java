@@ -8,7 +8,7 @@ import com.girija.webseries.dto.WebSeriesDTO;
 
 public interface WebSeriesDAO {
 int save(WebSeriesDTO dto);
-boolean saveAll(Collection<WebSeriesDTO> collection);
+void saveAll(Collection<WebSeriesDTO> collection);
  Collection<WebSeriesDTO> findAll();
  Collection<WebSeriesDTO> findAll(Predicate<WebSeriesDTO> predicate);
  int total();

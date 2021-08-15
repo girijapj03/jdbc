@@ -10,6 +10,7 @@ import java.util.Collection;
 
 import java.util.Optional;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import com.girija.webseries.constant.*;
 import com.girija.webseries.dto.WebSeriesDTO;
@@ -170,9 +171,42 @@ public class WebSeriesDAOImpl implements WebSeriesDAO {
 	}
 
 	@Override
-	public boolean saveAll(Collection<WebSeriesDTO> collection) {
-		// TODO Auto-generated method stub
-		return false;
+	public void saveAll(Collection<WebSeriesDTO> collection) {
+		
+		System.out.println("*****saving all dto ******");
+		Connection tempConnection = null;
+		try (Connection connection = DriverManager.getConnection(JdbcConstants.URL, JdbcConstants.USERNAME,
+				JdbcConstants.PASSWORD)) {
+			tempConnection = connection;
+			connection.setAutoCommit(false);
+			String query = "insert into webseries_table(web_name,web_noOfEp,web_totalseason,streaming,web_type,web_ageLimit) values(?,?,?,?,?,?)";
+			PreparedStatement pre = connection.prepareStatement(query);
+			collection.forEach(dto->{
+			try {
+			pre.setString(1, dto.getWebName());
+			pre.setInt(2, dto.getNoOfEpisodes());
+			pre.setInt(3, dto.getTotalSeasons());
+			pre.setString(4, dto.getStreaming().toString());
+			pre.setString(5, dto.getWebType().toString());
+			pre.setInt(6, dto.getYestAgeIndNodBahudu());
+			pre.execute();
+			System.out.println(dto);
+			}catch (Exception e) {
+				
+			}
+			});
+
+			connection.commit();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			try {
+				tempConnection.rollback();
+			} catch (SQLException e1) {
+				e1.printStackTrace();
+
+			}
+		}
+		
 	}
 
 	@Override
