@@ -1,6 +1,8 @@
 package com.giri.customer.service;
 
 import java.util.Collection;
+import java.util.Optional;
+import java.util.function.Predicate;
 
 import com.giri.customer.dao.CustomerDAO;
 import com.giri.customer.dao.CustomerDAOImple;
@@ -56,7 +58,7 @@ public class CustomerServiceValid implements CustomerService {
 			if (fromVAlidate && toVAlidate && addressValidate && nameVAlidate) {
 				System.out.println("data is valid");
 				dao.save(dto);
-				//return "SUCCESS";
+				// return "SUCCESS";
 				return 1;
 			}
 		}
@@ -74,6 +76,36 @@ public class CustomerServiceValid implements CustomerService {
 
 		return false;
 
+	}
+
+	@Override
+	public Optional<CustomerDTO> findOne(Predicate<CustomerDTO> predicate) {
+
+		return dao.findOne(predicate);
+	}
+
+	@Override
+	public Collection<CustomerDTO> findAll() {
+
+		return dao.findAll();
+	}
+
+	@Override
+	public Collection<CustomerDTO> findAll(Predicate<CustomerDTO> predicate) {
+
+		return dao.findAll(predicate);
+	}
+
+	@Override
+	public Collection<CustomerDTO> findAllSortByNameDesc() {
+
+		return dao.findAllSortByNameDesc();
+	}
+
+	@Override
+	public int total() {
+
+		return dao.total();
 	}
 
 }

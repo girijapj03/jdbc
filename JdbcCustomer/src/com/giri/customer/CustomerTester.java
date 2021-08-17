@@ -22,22 +22,24 @@ public class CustomerTester {
 		service.validateAndSave(dto);
 		service.validateAndSave(dto1);
 		service.validateAndSave(dto2);
-		CustomerDAO dao = new CustomerDAOImple();
-		Collection<CustomerDTO> collection = dao.findAll();
+		CustomerDAO dao = new CustomerDAOImple();//no need to call dao ,validate using service
+		Collection<CustomerDTO> collection =service.findAll();
 		service.valindateAndSaveAll(collection);
-		Optional<CustomerDTO> findOne = dao.findOne((g) -> g.getName().equalsIgnoreCase("girija"));
+		Optional<CustomerDTO> findOne = service.findOne((g) -> g.getName().equalsIgnoreCase("abi"));
 		if (findOne.isPresent()) {
 			CustomerDTO temp = findOne.get();
-			System.out.println(" optional findOne():" + temp);
+		System.out.println(" optional findOne():" + temp);
 		}
-		Collection<CustomerDTO> collection1 = dao.findAllSortByNameDesc();
+		Collection<CustomerDTO> collection1 = service.findAllSortByNameDesc();
 		collection1.forEach((desc) -> System.out.println("sorting name in descending order:" + desc));
 
-		Collection<CustomerDTO> findAll = dao.findAll((g) -> g.isMarried() == true);
+		Collection<CustomerDTO> findAll = service.findAll((g) -> g.isMarried() == true);
 		findAll.forEach((pre) -> System.out.println(" predicate:" + pre));
 
+		
 		dao.saveAll(collection);
-
+		System.out.println(service.total());
+		
 	}
 
 }
